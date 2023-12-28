@@ -1,3 +1,24 @@
+playerScore = document.querySelector('.counts .player')
+computerScore = document.querySelector('.counts .computer')
+choices = document.querySelector('.choices').children
+choices[0].addEventListener('click', (e) => {
+    let result = playRound('rock', getComputerChoice())
+    console.log(result);
+    justify(result);
+});
+choices[1].addEventListener('click', (e) => {
+    let result = playRound('paper', getComputerChoice())
+    console.log(result)
+    justify(result);
+});
+choices[2].addEventListener('click', (e) => {
+    let result = playRound('scissors', getComputerChoice())
+    console.log(result)
+    justify(result);
+});
+
+
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * (max+1));
   }
@@ -53,23 +74,26 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    while (playerScore < 5 || computerScore < 5) {
-        const playerSelection = prompt('Your choice: ');
-        const computerSelection = getComputerChoice();
-        const result = playRound(playerSelection, computerSelection);
-        if (result == 'LOSE') {
-            computerScore++
-        } else if (result == 'WIN') {
-            playerScore++
-        }
+function justify(result) {
+    player = parseInt(playerScore.innerText, 10)
+    computer = parseInt(computerScore.innerText, 10)
+    console.log(player)
+
+    if (result == 'WIN') {
+        player += 1;
+        playerScore.innerText = player
+    } else if (result == 'LOSE') {
+        computer += 1;
+        computerScore.innerText = computer
     }
 
-    const winner = (playerScore > computerScore) ? "player" : "computer"
-    return winner
+    if (player == 5) {
+        alert('You won!');
+        playerScore.innerText = 0;
+        computerScore.innerText = 0;
+    } else if (computer == 5) {
+        alert('You lose!');
+        playerScore.innerText = 0;
+        computerScore.innerText = 0;
+    }
 }
-
-
-console.log(game())
